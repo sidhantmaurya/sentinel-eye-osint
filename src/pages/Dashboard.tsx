@@ -4,6 +4,7 @@ import { GlassCard } from "@/components/ui/GlassCard";
 import { Button } from "@/components/ui/button";
 import { SearchBox, SearchType } from "@/components/osint/SearchBox";
 import { ResultsPanel, OSINTResult } from "@/components/osint/ResultsPanel";
+import { LocationMap } from "@/components/osint/LocationMap";
 import {
   Shield,
   LogOut,
@@ -206,8 +207,22 @@ export default function Dashboard() {
 
           {/* Results */}
           <div className="grid lg:grid-cols-3 gap-6">
-            <div className="lg:col-span-2">
+            <div className="lg:col-span-2 space-y-6">
               <ResultsPanel result={result} />
+              
+              {/* Location Map */}
+              <LocationMap
+                location={
+                  result?.latitude && result?.longitude
+                    ? {
+                        latitude: result.latitude,
+                        longitude: result.longitude,
+                        label: result.input,
+                        details: result.location,
+                      }
+                    : null
+                }
+              />
             </div>
 
             {/* Recent History */}
